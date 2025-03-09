@@ -1,0 +1,33 @@
+.radio-button-container {
+  padding: 15px;
+  background: #20212c;
+  border-radius: 6px;
+  max-width: 251px;
+  min-width: 251px;
+  margin: 0 auto;
+  gap: 24px;
+  display: inline-flex;
+  justify-content: center;
+}
+.radio-button-container .radio-item {
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  cursor: pointer;
+  background: white;
+}
+.radio-button-container .radio__img {
+  cursor: pointer;
+}
+.radio-button-container .radio-button-left,
+.radio-button-container .radio-button-right {
+  background-color: #635fc7;
+  border-radius: 12px;
+  display: inline;
+}
+.radio-button-container .radio-button-left {
+  padding: 3px 3px 3px 23px;
+}
+.radio-button-container .radio-button-right {
+  padding: 3px 23px 3px 3px;
+}/*# sourceMappingURL=radioButton.css.map */
