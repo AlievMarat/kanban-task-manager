@@ -13,7 +13,7 @@ export default function Modal({ title, children }: IModal) {
   const dispatch = useDispatch();
   const modalRoot = document.getElementById("modal");
 
-  if (!modalRoot) return null; // Если вдруг `modal-root` нет в DOM
+  if (!modalRoot) return null;
 
   return ReactDOM.createPortal(
     <section className="modal" onClick={() => dispatch(isOpenModal(false))}>

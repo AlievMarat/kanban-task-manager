@@ -8,11 +8,16 @@ import { sidebarShowAdd } from "../store/slices/SidebarShowSlice";
 import { isOpenModal } from "../store/slices/ModalSlice";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { sidebarBoardCreate } from "../store/slices/SidebarBoardSlice";
+import { useQuery } from "@tanstack/react-query";
+import { getBoard } from "../api/useBoards";
 export default function Sidebar() {
   const sidebarShowFlag = useSelector((state: any) => state.sidebarShow.show);
   const dispatch = useDispatch();
-  console.log(sidebarShowFlag);
+  const { data, isLoading } = useQuery({
+    queryKey: ["board"],
+    queryFn: () => getBoard(),
+  });
+
   return (
     <>
       {sidebarShowFlag && (
@@ -20,14 +25,14 @@ export default function Sidebar() {
           <div className="sidebar__container">
             <p className="sidebar__title">ALL BOARDS</p>
             <div className="sidebar__inner">
-              <p className="sidebar__item">
-                <img src={IconBoard} />
-                Platform Launch
-              </p>
-              <p className="sidebar__item">
-                <img src={IconBoard} />
-                Platform Launch
-              </p>
+              {data == undefined
+                ? isLoading
+                : data.map((board) => (
+                    <p className="sidebar__item">
+                      <img src={IconBoard} />
+                      {board.title}
+                    </p>
+                  ))}
               <SidebarBtn
                 title="+ Create New Board"
                 onClick={() => dispatch(isOpenModal(true))}
