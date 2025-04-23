@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
+import addNewBoard from "./slices/SidebarBoardSlice";
 import sidebarBoard from "./slices/SidebarBoardSlice";
+import ModalOpenSlice from "./slices/ModalOpen";
 import sidebarShow from "./slices/SidebarShowSlice";
-import modalSlice from "./slices/ModalSlice";
+import InputValuesSlice from "./slices/InputValuesSlice";
 export const store = configureStore({
   reducer: {
     sidebarBoard: sidebarBoard,
     sidebarShow: sidebarShow,
-    modalSlice: modalSlice,
+    InputValuesSlice: InputValuesSlice,
+    addNewBoard: addNewBoard,
+    modalOpen: ModalOpenSlice,
   },
 });
 

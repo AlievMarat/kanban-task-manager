@@ -1,1 +1,14 @@
-/*# sourceMappingURL=input.css.map */
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  background: none;
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  border-radius: 4px;
+  padding-left: 16px;
+}/*# sourceMappingURL=input.css.map */

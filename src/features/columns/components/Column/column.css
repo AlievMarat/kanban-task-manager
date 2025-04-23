@@ -1,0 +1,18 @@
+.column {
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.column__title {
+  color: #828fa3;
+  font-weight: bold;
+}
+.column__card {
+  background: #2b2c37;
+  padding: 23px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 15px;
+  box-shadow: 0 1px 6px rgba(54, 78, 126, 0.102);
+}/*# sourceMappingURL=column.css.map */

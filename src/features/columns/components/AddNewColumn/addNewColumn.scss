@@ -1,0 +1,16 @@
+.add-column {
+  padding: 0 55px;
+  height: calc(100svh - 102px - 24px);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #2b2c3775 0%, #2b2c3721 100%);
+  cursor: pointer;
+  color: #828fa3;
+  font-size: 24px;
+  font-weight: bold;
+  transition: 0.5s;
+  border: none;
+}
+.add-column:hover {
+  color: #635fc7;
+  transition: 0.5s;
+}

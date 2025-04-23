@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  align-items: center;
+  background: #2b2c37;
+  padding: 0 24px 0 33px;
+}
+.header__title {
+  padding: 29px 0 37px;
+  color: white;
+  font-size: 24px;
+  border-left: 1px solid #3e3f4e;
+  font-weight: bold;
+  padding-left: 24px;
+}
+.header__info {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.header__create-board {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.header .logo-container {
+  padding: 0 113px 0 0;
+  display: flex;
+  gap: 9px;
+}
+.header .logo-container .logo-btn {
+  display: block;
+  align-self: center;
+}
+
+@media (min-width: 768px) {
+  .header .logo-container .logo-btn {
+    display: none;
+  }
+}/*# sourceMappingURL=header.css.map */

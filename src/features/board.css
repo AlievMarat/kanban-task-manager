@@ -1,0 +1,16 @@
+.board__container {
+  display: flex;
+}
+.board .open-sidebar {
+  position: absolute;
+  bottom: 32px;
+  background: #635fc7;
+  padding: 19px 22px 18px 18px;
+  border-radius: 0 100px 100px 0;
+  cursor: pointer;
+}
+.board .columns__container {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0 0 24px;
+}/*# sourceMappingURL=board.css.map */
