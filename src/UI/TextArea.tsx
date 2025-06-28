@@ -8,7 +8,7 @@ interface ITextArea {
 export default function TextArea({ value, placeholder, onChange }: ITextArea) {
   return (
     <textarea
-      className="description"
+      className="text-area"
       placeholder={placeholder}
       value={value}
       onChange={onChange}

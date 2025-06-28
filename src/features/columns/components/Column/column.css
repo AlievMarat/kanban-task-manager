@@ -15,4 +15,9 @@
   font-weight: bold;
   font-size: 15px;
   box-shadow: 0 1px 6px rgba(54, 78, 126, 0.102);
+}
+.column .slot-placeholder {
+  background: none;
+  width: 280px;
+  height: 68px;
 }/*# sourceMappingURL=column.css.map */

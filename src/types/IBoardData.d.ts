@@ -24,6 +24,17 @@ interface IBoardSidebarGetResponse {
     }
   ];
 }
+interface ICard {
+  id: number;
+  title: string;
+  color: string;
+  description: string;
+  custom: {
+    deadline: string;
+  };
+  users: number[];
+  created_at?: number;
+}
 interface IBoardGet {
   title: string;
   custom: {
@@ -34,19 +45,7 @@ interface IBoardGet {
     {
       id: number;
       title: string;
-      cards: [
-        {
-          id: number;
-          title: string;
-          color: string;
-          description: string;
-          custom: {
-            deadline: string;
-          };
-          users: number[];
-          created_at: number;
-        }
-      ];
+      cards: [ICard];
     }
   ];
 }

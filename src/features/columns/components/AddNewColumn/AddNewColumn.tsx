@@ -2,45 +2,23 @@ import React from "react";
 import "../AddNewColumn/addNewColumn.css";
 import { useTypedSelector } from "../../../../customHooks/useTypedSelector";
 import { useDispatch } from "react-redux";
-import { addBoardNameValue } from "../../../../store/slices/InputValuesSlice";
+import EditBoard from "../../../Modal/EditBoard/EditBoard";
+// import { addBoardNameValue } from "../../../../store/slices/InputValuesSlice";
 import { openModal } from "../../../../store/slices/ModalOpen";
-import GenericModal from "../../../Modal/GenericModal/GenericModal";
+import GenericModal from "../../../Modal/CreateBoard/CreateBoard";
 import { useRenameBoardMutation } from "../../../boards/useBoardQuery/useBoardQuery";
 export default function AddNewColumn() {
-  const { boardName, columns } = useTypedSelector(
-    (state) => state.InputValuesSlice
-  );
   const modalFlag = useTypedSelector(
     (state) => state.modalOpen.modalFlags.editBoard
   );
-  const renameBoardMutation = useRenameBoardMutation();
-  console.log(modalFlag);
   const dispatch = useDispatch();
-  console.log(boardName);
-  const handleRenameBoard = () => {
-    const boardData: any = {
-      title: boardName,
-      custom: {
-        description: "desc1",
-        color: "green",
-      },
-    };
-
-    renameBoardMutation.mutate(boardData);
-  };
+  const renameBoardMutation = useRenameBoardMutation();
   return (
     <>
-      {modalFlag && (
-        <GenericModal
-          genericTitle="Edit Board"
-          genericButton="Save Changes"
-          handleCreateBoard={handleRenameBoard}
-        />
-      )}
+      {modalFlag && <EditBoard />}
       <button
         className="add-column"
         onClick={() => {
-          dispatch(addBoardNameValue("Edit Board"));
           dispatch(openModal("editBoard"));
         }}
       >

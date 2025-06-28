@@ -5,7 +5,9 @@ type ModalKey =
   | "editBoard"
   | "deleteBoard"
   | "deleteTask"
-  | "addNewTask";
+  | "addNewTask"
+  | "cardModal";
+
 const openModalSlice = createSlice({
   name: "openModal",
   initialState: {
@@ -15,6 +17,7 @@ const openModalSlice = createSlice({
       deleteBoard: false,
       deleteTask: false,
       addNewTask: false,
+      cardModal: false,
     },
   },
   reducers: {

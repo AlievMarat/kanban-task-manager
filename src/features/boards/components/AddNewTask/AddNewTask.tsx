@@ -5,11 +5,5 @@ export default function AddNewTask() {
   const addNewTask = useTypedSelector(
     (state) => state.modalOpen.modalFlags.addNewTask
   );
-  return (
-    <>
-      {addNewTask && (
-        <GenericModalTask title="Add New Task" createTask={() => null} />
-      )}
-    </>
-  );
+  return <>{addNewTask && <GenericModalTask />}</>;
 }
