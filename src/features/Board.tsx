@@ -20,8 +20,6 @@ import { useParams } from "react-router-dom";
 
 export default function Board() {
   const sidebarShowFlag = useTypedSelector((state) => state.sidebarShow.show);
-  const queryClient = useQueryClient();
-  const boardId = useParams().board_id;
   const [dropSlot, setDropSlot] = useState(false);
   const openCardModal = useTypedSelector(
     (state) => state.modalOpen.modalFlags.cardModal
@@ -47,7 +45,6 @@ export default function Board() {
   };
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
-    //setDropSlot(true);
   };
   const handleDragLeave = () => {
     if (!draggedCard || !data) return;
@@ -118,7 +115,6 @@ export default function Board() {
           {data?.lists.map((list, listIndex) => (
             <Column
               key={list.id}
-              id={list.id}
               title={list.title}
               card={list.cards}
               dropSlot={dropSlot}

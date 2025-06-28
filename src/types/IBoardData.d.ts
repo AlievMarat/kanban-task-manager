@@ -49,8 +49,25 @@ interface IBoardGet {
     }
   ];
 }
-
+interface IList {
+  title: string;
+  card: ICard[];
+  dropSlot: boolean;
+  listIndex: number;
+  hoveredPosition: { listIndex: number; cardIndex: number } | null;
+  draggedCard: { listIndex: number; cardIndex: number } | null;
+  onDragStart: (listIndex: number, cardIndex: number) => void;
+  onDragLeave: () => void;
+  onDragEnter: (
+    e: React.DragEvent,
+    listIndex: number,
+    cardIndex: number
+  ) => void;
+  onDragOver: (e: React.DragEvent) => void;
+  onDrop: () => void;
+}
 export const {
+  IList,
   IBoardSidebarPost,
   IBoardSidebarPostResponse,
   IBoardSidebarGetResponse,
