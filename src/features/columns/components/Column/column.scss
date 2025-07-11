@@ -8,7 +8,8 @@
     font-weight: bold;
   }
   &__card {
-    background: #2b2c37;
+    background: var(--bgItem);
+    color: var(--text-color);
     padding: 23px 16px;
     border-radius: 8px;
     font-weight: bold;
@@ -16,8 +17,11 @@
     box-shadow: 0 1px 6px rgba(54, 78, 126, 0.102);
   }
   .slot-placeholder {
-    background: none;
+    background: rgba(125, 144, 182, 0.102);
+    opacity: 50%;
     width: 280px;
+    transition: 0.5s;
+    border-radius: 8px;
     height: 68px;
   }
 }

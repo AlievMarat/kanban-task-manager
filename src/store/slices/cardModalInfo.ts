@@ -14,6 +14,9 @@ const cardModalInfo = createSlice({
   name: "cardModalInfo",
   initialState,
   reducers: {
+    setCardId(state, action) {
+      state.id = action.payload;
+    },
     setCardModalInfo(state, action) {
       return action.payload;
     },
@@ -25,6 +28,6 @@ const cardModalInfo = createSlice({
     },
   },
 });
-export const { setCardModalInfo, setTitle, setDescription } =
+export const { setCardModalInfo, setTitle, setDescription, setCardId } =
   cardModalInfo.actions;
 export default cardModalInfo.reducer;

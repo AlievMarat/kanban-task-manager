@@ -4,8 +4,15 @@ import { ICard } from "../../../../types/IBoardData";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../../store/slices/ModalOpen";
 import { IList } from "../../../../types/IBoardData";
-
+import {
+  setDescription,
+  setTitle,
+  setCardId,
+} from "../../../../store/slices/cardModalInfo";
+import { addColumnId } from "../../../../store/slices/columnId";
+import { useTypedSelector } from "../../../../customHooks/useTypedSelector";
 export default function Column({
+  listId,
   title,
   card,
   dropSlot,
@@ -37,7 +44,8 @@ export default function Column({
       }
     }
   };
-
+  const columnId = useTypedSelector((state) => state.columnId.columnId);
+  console.log(columnId);
   useEffect(() => {
     if (!hoveredPosition || hoveredPosition.listIndex !== listIndex) {
       setIsMouseBelowLastCard(false);
@@ -53,7 +61,6 @@ export default function Column({
     >
       <p className="column__title">{title}</p>
 
-      {/* Если список пустой и навели - показываем слот */}
       {card.length === 0 &&
         hoveredPosition?.listIndex === listIndex &&
         hoveredPosition?.cardIndex === 0 && (
@@ -81,7 +88,6 @@ export default function Column({
 
         return (
           <React.Fragment key={item.id}>
-            {/* Слот перед карточкой */}
             {isSlotHere && (
               <div
                 className="slot-placeholder"
@@ -99,7 +105,13 @@ export default function Column({
               onDragEnter={(e) => onDragEnter(e, listIndex, cardIndex)}
               onDragOver={onDragOver}
               onDrop={onDrop}
-              onClick={() => dispatch(openModal("cardModal"))}
+              onClick={() => {
+                dispatch(setCardId(item.id));
+                dispatch(addColumnId(listId));
+                dispatch(setTitle(item.title));
+                dispatch(setDescription(item.description));
+                dispatch(openModal("cardModal"));
+              }}
             >
               {item.title}
             </div>
@@ -107,7 +119,6 @@ export default function Column({
         );
       })}
 
-      {/* Слот в самом низу (если мышь под последней карточкой) */}
       {hoveredPosition &&
         hoveredPosition.listIndex === listIndex &&
         hoveredPosition.cardIndex === card.length &&

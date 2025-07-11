@@ -1,0 +1,14 @@
+[data-theme="light"] {
+  --bgBoard-color: #f4f7fd;
+  --bgItem: white;
+  --text-color: black;
+  --border-color: #e4ebfa;
+  --bg-radio: #f4f7fd;
+}
+[data-theme="dark"] {
+  --bgBoard-color: #20212c;
+  --bgItem: #2b2c37;
+  --text-color: white;
+  --border-color: #3e3f4e;
+  --bg-radio: #20212c;
+}

@@ -69,3 +69,9 @@ export const changeTaskPositionRequest = async (
   );
   return request;
 };
+export const onDeleteBoard = (boardId: string | undefined) => {
+  const request = api.delete(
+    `${import.meta.env.VITE_API_URL}/board/${boardId}`
+  );
+  return request;
+};

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTypedSelector } from "../customHooks/useTypedSelector";
 import Header from "./boards/components/Header/Header";
 import Sidebar from "./boards/components/Sidebar/Sidebar";
@@ -16,14 +16,27 @@ import CreateFirstColumn from "./columns/components/CreateFirstColumn/CreateFirs
 import CardModal from "./Modal/CardModal/CardModal";
 import { useQueryClient } from "@tanstack/react-query";
 import { ICard } from "../types/IBoardData";
+import "./theme.css";
+import { useDeleteBoardMutation } from "./boards/useBoardQuery/useBoardQuery";
 import { useParams } from "react-router-dom";
-
+import DeleteBoard from "./boards/components/DeleteBoard/DeleteBoard";
+import { closeModal } from "../store/slices/ModalOpen";
 export default function Board() {
   const sidebarShowFlag = useTypedSelector((state) => state.sidebarShow.show);
   const [dropSlot, setDropSlot] = useState(false);
+  const queryClient = useQueryClient();
+  const deleteBoardMutation = useDeleteBoardMutation();
+  const boardId = useParams().board_id;
+  const deleteCardModalFlag = useTypedSelector(
+    (state) => state.modalOpen.modalFlags.deleteBoard
+  );
   const openCardModal = useTypedSelector(
     (state) => state.modalOpen.modalFlags.cardModal
   );
+  const currentTheme = useTypedSelector((state) => state.themeSlice.theme);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", currentTheme);
+  });
   const { data } = useBoardInfoQuery();
   const [hoveredPosition, setHoveredPosition] = useState<{
     listIndex: number;
@@ -31,13 +44,11 @@ export default function Board() {
   } | null>(null);
   const dispatch = useDispatch();
 
-  // Добавляем стейт для drag and drop
   const [draggedCard, setDraggedCard] = useState<{
     listIndex: number;
     cardIndex: number;
   } | null>(null);
 
-  // Мутация для обновления позиций на сервере
   const changeTaskPosition = useChangeTaskPositionMutation();
 
   const handleDragStart = (listIndex: number, cardIndex: number) => {
@@ -83,7 +94,16 @@ export default function Board() {
       1
     );
     newLists[targetListIndex].cards.splice(targetCardIndex, 0, movedCard);
-
+    console.log(newLists);
+    queryClient.setQueryData(
+      ["boardInfo", boardId],
+      (oldData: typeof data | undefined) => {
+        return {
+          ...oldData,
+          lists: newLists,
+        };
+      }
+    );
     const payload = newLists.flatMap((list) =>
       list.cards.map((card, index) => ({
         id: card.id,
@@ -115,6 +135,7 @@ export default function Board() {
           {data?.lists.map((list, listIndex) => (
             <Column
               key={list.id}
+              listId={list.id}
               title={list.title}
               card={list.cards}
               dropSlot={dropSlot}
@@ -132,6 +153,16 @@ export default function Board() {
         </div>
         {(data?.lists?.length ?? 0) === 0 && <CreateFirstColumn />}
         {openCardModal && <CardModal />}
+        {deleteCardModalFlag && (
+          <DeleteBoard
+            title="board"
+            itemTitle={data?.title}
+            onDelete={() => {
+              deleteBoardMutation.mutate();
+              dispatch(closeModal("deleteBoard"));
+            }}
+          />
+        )}
       </div>
     </div>
   );

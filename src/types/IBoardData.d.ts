@@ -50,6 +50,7 @@ interface IBoardGet {
   ];
 }
 interface IList {
+  listId: number;
   title: string;
   card: ICard[];
   dropSlot: boolean;

@@ -1,35 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Modal from "../Modal";
 import Input from "../../../UI/Input";
 import Button from "../../../UI/Button";
-import { useTypedSelector } from "../../../customHooks/useTypedSelector";
-import { useBoardMutations } from "../../boards/useBoardQuery/useBoardQuery";
 import { useDispatch } from "react-redux";
+import { useCreateBoardLogic } from "../../../customHooks/useCreateBoardLogic";
 import {
   addNewColumns,
   newColumnValue,
-  resetColumns,
 } from "../../../store/slices/EditBoardSlice";
-import {
-  addBoardName,
-  resetBoardName,
-} from "../../../store/slices/CreateBoard";
+import { addBoardName } from "../../../store/slices/CreateBoard";
+
 export default function GenericModal() {
-  const createBoardMutation = useBoardMutations();
-  const boardName = useTypedSelector((state) => state.createBoard.title);
-  const newColumns = useTypedSelector((state) => state.editBoard.newColumns);
+  const { boardName, newColumns, handleCreateBoard } = useCreateBoardLogic();
   const dispatch = useDispatch();
-  const handleCreateBoard = () => {
-    const boardData: any = {
-      title: boardName,
-      custom: { description: "dsf" },
-    };
-    createBoardMutation.mutate(boardData);
-  };
-  useEffect(() => {
-    dispatch(resetColumns());
-    dispatch(resetBoardName());
-  }, []);
   return (
     <Modal title="Add New Board">
       <>

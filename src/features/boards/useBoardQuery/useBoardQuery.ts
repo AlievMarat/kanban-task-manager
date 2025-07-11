@@ -5,7 +5,7 @@ import {
   getBoard,
 } from "../../../features/boards/api/useBoards";
 import { createBoard } from "../../../features/boards/api/useBoards";
-import { IBoardPost } from "../../../types/IBoardData";
+import { IBoardGet, IBoardPost } from "../../../types/IBoardData";
 import { createTask } from "../../../features/boards/api/useBoards";
 import { renameBoardRequest } from "../../../features/boards/api/useBoards";
 import { closeModal } from "../../../store/slices/ModalOpen";
@@ -16,8 +16,8 @@ import { createColumn } from "../../columns/api/useColumns";
 import { useTypedSelector } from "../../../customHooks/useTypedSelector";
 import { deleteColumn } from "../../../features/boards/api/useBoards";
 import { useParams } from "react-router-dom";
-import AddNewTask from "../components/AddNewTask/AddNewTask";
-import { changeTaskValue } from "../../../features/boards/api/useBoards";
+import { useNavigate } from "react-router-dom";
+import { onDeleteBoard } from "../../../features/boards/api/useBoards";
 export const useBoardQuery = () => {
   return useQuery({
     queryKey: ["board"],
@@ -39,13 +39,12 @@ export const useBoardInfoQuery = () => {
   return useQuery({
     queryKey: ["boardInfo", boardId],
     queryFn: () => getBoardInfo(boardId),
-    //enabled: !!boardId,
     staleTime: 1000 * 60 * 5, // Кэшируем данные на 5 минут
     refetchOnMount: false, // Не делать повторный запрос при монтировании
   });
 };
 export const useCreateTaskMutation = (
-  boardId: any,
+  boardId: string | undefined,
   listId: number | undefined
 ) => {
   const queryClient = useQueryClient();
@@ -88,7 +87,6 @@ export const useCreateColumnsMutation = () => {
       for (let i = 0; i < createNewColumns.length; i++) {
         const columnTitle: any = createNewColumns[i];
         if (columnTitle.value.trim() !== "") {
-          console.log(columnTitle);
           const column = {
             title: columnTitle.value,
             position: data.lists.length,
@@ -99,7 +97,7 @@ export const useCreateColumnsMutation = () => {
         }
       }
       for (let i = 0; i < deleteAllColumns.length; i++) {
-        await deleteColumn(Number(boardId), Number(deleteAllColumns[i]));
+        await deleteColumn(Number(boardId), deleteAllColumns[i]);
         await delay(500);
       }
     },
@@ -116,12 +114,11 @@ export const useRenameBoardMutation = () => {
   const createColumns = useCreateColumnsMutation();
 
   return useMutation({
-    mutationFn: (board: any) => renameBoardRequest(Number(boardId), board),
+    mutationFn: (board: IBoardPost) =>
+      renameBoardRequest(Number(boardId), board),
     onSuccess: async () => {
-      // Получаем актуальные данные перед созданием колонок
       await createColumns.mutateAsync(boardId);
 
-      // Обновляем кэш после всех действий
       await queryClient.invalidateQueries({ queryKey: ["board"] });
       await queryClient.invalidateQueries({ queryKey: ["columns"] });
       await queryClient.invalidateQueries({ queryKey: ["boardInfo", boardId] });
@@ -131,7 +128,6 @@ export const useRenameBoardMutation = () => {
 export const useBoardMutations = () => {
   const createColumns = useCreateColumnsMutation();
   const queryClient = useQueryClient();
-  //const renameBoard = useRenameBoardMutation();
   return useMutation({
     mutationFn: createBoard,
     onSuccess: async (newBoard: IBoardPost) => {
@@ -168,8 +164,29 @@ export const useChangeTaskPositionMutation = () => {
   return useMutation({
     mutationFn: (payload) => changeTaskPositionRequest(boardId, payload),
     onSuccess: async () => {
-      //await queryClient.invalidateQueries({ queryKey: ["columns"] });
       await queryClient.invalidateQueries({ queryKey: ["boardInfo"] });
+    },
+  });
+};
+
+export const useDeleteBoardMutation = () => {
+  const queryClient = useQueryClient();
+  const boardId = useParams().board_id;
+  const navigate = useNavigate();
+  const { data } = useBoardQuery();
+
+  return useMutation({
+    mutationFn: () => onDeleteBoard(boardId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["board"] });
+      const boardIndex = data?.findIndex(
+        (board) => String(board.id) === boardId
+      );
+      const nextBoard = data[boardIndex + 1] || data[boardIndex - 1];
+      if (nextBoard) {
+        await navigate(`/board/${nextBoard.id}`);
+      }
+      await queryClient.invalidateQueries({ queryKey: ["board"] });
     },
   });
 };

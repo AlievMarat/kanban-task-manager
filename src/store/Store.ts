@@ -8,6 +8,7 @@ import sidebarShow from "./slices/SidebarShowSlice";
 import createTask from "./slices/CreateTask";
 import CardModalInfo from "./slices/cardModalInfo";
 import columnId from "./slices/columnId";
+import themeSlice from "./slices/setDarkTheme";
 export const store = configureStore({
   reducer: {
     sidebarBoard: sidebarBoard,
@@ -19,6 +20,7 @@ export const store = configureStore({
     createTask: createTask,
     CardModal: CardModalInfo,
     columnId: columnId,
+    themeSlice: themeSlice,
   },
 });
 

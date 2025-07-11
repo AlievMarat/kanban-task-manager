@@ -4,7 +4,8 @@
 .sidebar {
   //padding-right: 23px;
   min-width: 300px;
-  border-right: 1px solid #3e3f4e;
+  transition: 0.3s;
+  border-right: 1px solid var(--border-color);
   height: calc(100svh - 102px);
   overflow-y: auto;
   display: flex;
@@ -69,5 +70,5 @@
     background: white;
     color: #635fc7;
   }
-  background: #2b2c37;
+  background: var(--bgItem);
 }

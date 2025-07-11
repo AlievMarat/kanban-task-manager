@@ -2,6 +2,8 @@
   &__container {
     display: flex;
   }
+  background: var(--bgBoard-color);
+  transition: 0.3s;
   .open-sidebar {
     position: absolute;
     bottom: 32px;
@@ -12,6 +14,7 @@
   }
   .columns__container {
     display: flex;
+    overflow-x: auto;
     gap: 24px;
     padding: 24px 0 0 24px;
   }

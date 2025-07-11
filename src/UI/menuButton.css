@@ -1,0 +1,20 @@
+.menu {
+  background: #2b2c37;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: absolute;
+  right: 24px;
+  width: 192px;
+  box-shadow: 0 4px 12px rgba(30, 105, 202, 0.3);
+  top: 101px;
+}
+
+.menu__item {
+  cursor: pointer;
+  font-weight: 600;
+}
+.menu__item:last-child {
+  color: #bd1f1f;
+}/*# sourceMappingURL=menuButton.css.map */

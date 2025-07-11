@@ -1,14 +1,17 @@
 .header {
   display: flex;
   align-items: center;
-  background: #2b2c37;
+  background: var(--bgItem);
+  transition: 0.3s;
   padding: 0 24px 0 33px;
+  position: relative;
 }
 .header__title {
   padding: 29px 0 37px;
-  color: white;
+  color: var(--text-color);
   font-size: 24px;
-  border-left: 1px solid #3e3f4e;
+  border-left: 1px solid var(--border-color);
+  transition: 0.3s;
   font-weight: bold;
   padding-left: 24px;
 }

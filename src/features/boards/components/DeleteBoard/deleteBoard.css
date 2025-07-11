@@ -1,0 +1,27 @@
+.delete-board__title {
+  color: #ea5555;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.delete-board__text {
+  color: #828fa3;
+}
+
+.delete__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-direction: row;
+}
+.delete__buttons .button {
+  cursor: pointer;
+  flex: 1;
+}
+.delete__buttons .button:first-child {
+  background: #ea5555 !important;
+}
+.delete__buttons .button:last-child {
+  background: #fff !important;
+  color: #635fc7;
+}/*# sourceMappingURL=deleteBoard.css.map */

@@ -2,51 +2,22 @@ import React from "react";
 import Modal from "../Modal";
 import Input from "../../../UI/Input";
 import Button from "../../../UI/Button";
-import { closeModal } from "../../../store/slices/ModalOpen";
-import { useEffect } from "react";
+import { useEditBoardLogic } from "../../../customHooks/useEditBoardLogic";
 import IconCross from "../../../assets/IconCross.svg";
 import { useTypedSelector } from "../../../customHooks/useTypedSelector";
 import {
-  useBoardInfoQuery,
-  useBoardMutations,
-  useRenameBoardMutation,
-} from "../../boards/useBoardQuery/useBoardQuery";
-import {
   addNewColumns,
   newColumnValue,
-  addAllColumns,
-  resetColumns,
   deleteForAllColumns,
   deleteForNewColumns,
 } from "../../../store/slices/EditBoardSlice";
 import { addBoardName } from "../../../store/slices/CreateBoard";
 import { useDispatch } from "react-redux";
 export default function EditBoard() {
-  const newColumns = useTypedSelector((state) => state.editBoard.newColumns);
+  const { newColumns, allColumns, handleCreateBoard } = useEditBoardLogic();
   const boardName = useTypedSelector((state) => state.createBoard.title);
-  const allColumns = useTypedSelector((state) => state.editBoard.allColumns);
-  const { data } = useBoardInfoQuery();
   const dispatch = useDispatch();
-  const boardMutation = useBoardMutations();
-  const renameBoardMutation = useRenameBoardMutation();
   console.log(boardName);
-  useEffect(() => {
-    dispatch(addBoardName(data.title));
-    data.lists.map((list) => {
-      if (list.title.trim() !== "")
-        dispatch(addAllColumns({ id: list.id, value: list.title }));
-    });
-    return () => {
-      dispatch(resetColumns());
-    };
-  }, []);
-  const handleCreateBoard = () => {
-    const boardData: any = {
-      title: boardName,
-      custom: { description: "dsf" },
-    };
-    renameBoardMutation.mutate(boardData);
-  };
   return (
     <Modal title="Edit Board">
       <>

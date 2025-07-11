@@ -13,6 +13,7 @@
   &__content {
     background: #2b2c37;
     min-width: 343px;
+    //mwidth: 480px;
     border-radius: 6px;
     padding: 24px;
   }
@@ -26,6 +27,7 @@
     &__content {
       background: #2b2c37;
       min-width: 480px;
+      max-width: 480px;
       border-radius: 6px;
       display: flex;
       gap: 24px;

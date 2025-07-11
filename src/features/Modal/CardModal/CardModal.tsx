@@ -6,17 +6,16 @@ import "./CardModal.css";
 import Dropdown from "../../../UI/Dropdown";
 import Input from "../../../UI/Input";
 import { useDispatch } from "react-redux";
-import { addTaskTitle } from "../../../store/slices/CreateTask";
-import { addTaskDescription } from "../../../store/slices/CreateTask";
 import { useChangeCardValuesMutations } from "../../boards/useBoardQuery/useBoardQuery";
 import { setTitle } from "../../../store/slices/cardModalInfo";
 import { setDescription } from "../../../store/slices/cardModalInfo";
 import TextArea from "../../../UI/TextArea";
 export default function CardModal() {
   const { title, description } = useTypedSelector((state) => state.CardModal);
-  const changeCardValue = useChangeCardValuesMutations();
   console.log(title);
+  const changeCardValue = useChangeCardValuesMutations();
   const dispatch = useDispatch();
+
   return (
     <Modal title="Edit Task">
       <>

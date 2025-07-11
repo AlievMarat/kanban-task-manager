@@ -3,26 +3,34 @@ import Button from "../../../../UI/Button";
 import "./header.css";
 import iconVerticalEllipsis from "../../../../assets/iconVerticalEllipsis.svg";
 import logoLight from "../../../../assets/logoLight.svg";
+import logoDark from "../../../../assets/logoDark.svg";
 import IconChevronDown from "../../../../assets/IconChevronDown.svg";
 import IconChevronUp from "../../../../assets/IconChevronUp.svg";
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../../../customHooks/useTypedSelector";
 import { sidebarShowAdd } from "../../../../store/slices/SidebarShowSlice";
 import AddNewTask from "../AddNewTask/AddNewTask";
-import { openModal } from "../../../../store/slices/ModalOpen";
-import { useBoardQuery } from "../../useBoardQuery/useBoardQuery";
-import { useParams } from "react-router-dom";
+import MenuButton from "../../../../UI/MenuButton";
+import { useHeaderLogic } from "../../../../customHooks/useHeaderLogic";
+import { useDispatch } from "react-redux";
 export default function Header() {
-  const sidebarShowFlag = useTypedSelector((state) => state.sidebarShow.show);
+  const {
+    sidebarShowFlag,
+    currentTheme,
+    openMenu,
+    boardTitle,
+    editBoard,
+    deleteBoard,
+    addTask,
+    setOpenMenu,
+  } = useHeaderLogic();
   const dispatch = useDispatch();
-  const { data } = useBoardQuery();
-  const boardId = useParams().board_id;
-  const boardTitle =
-    data && data.find((board) => board.id === Number(boardId))?.title;
   return (
-    <header className="header">
+    <header className="header" onClick={() => openMenu && setOpenMenu(false)}>
       <div className="logo-container">
-        <img src={logoLight} className="logo" alt="Logo" />
+        <img
+          src={currentTheme === "dark" ? logoLight : logoDark}
+          className="logo"
+          alt="Logo"
+        />
         <img
           className="logo-btn"
           src={sidebarShowFlag ? IconChevronUp : IconChevronDown}
@@ -34,14 +42,20 @@ export default function Header() {
         <h1 className="header__title">{boardTitle}</h1>
 
         <div className="header__create-board">
-          <Button
-            title="+ Add New Task"
-            onClick={() => dispatch(openModal("addNewTask"))}
+          <Button title="+ Add New Task" onClick={() => addTask()} />
+          <img
+            src={iconVerticalEllipsis}
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenMenu((prev) => !prev);
+            }}
           />
-          <img src={iconVerticalEllipsis} />
         </div>
       </div>
       <AddNewTask />
+      {openMenu && (
+        <MenuButton title="Board" onEdit={editBoard} onDelete={deleteBoard} />
+      )}
     </header>
   );
 }

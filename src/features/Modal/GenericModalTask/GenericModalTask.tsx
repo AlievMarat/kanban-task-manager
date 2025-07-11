@@ -2,7 +2,6 @@ import React from "react";
 import Modal from "../Modal";
 import Input from "../../../UI/Input";
 import TextArea from "../../../UI/TextArea";
-import IconCross from "../../../assets/IconCross.svg";
 import { useCreateTaskMutation } from "../../boards/useBoardQuery/useBoardQuery";
 import Button from "../../../UI/Button";
 import { useDispatch } from "react-redux";
@@ -19,7 +18,7 @@ export default function GenericModalTask() {
     (state) => state.createTask
   );
   const boardId = useParams();
-  const createTask = useCreateTaskMutation(boardId.board_id, columnId);
+  const createTask = useCreateTaskMutation(boardId.board_id, Number(columnId));
 
   return (
     <Modal title="Add New Task">
