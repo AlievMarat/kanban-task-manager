@@ -37,6 +37,7 @@ const EditBoardSlice = createSlice({
     resetColumns: (state) => {
       state.allColumns = [];
       state.newColumns = [];
+      state.deleteColumns = [];
     },
     newColumnValue: (
       state,

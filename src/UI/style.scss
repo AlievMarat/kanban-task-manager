@@ -8,6 +8,9 @@
   border: none;
   cursor: pointer;
 }
+button:disabled {
+  opacity: 25%;
+}
 .sidebar-btn {
   text-align: left;
   color: #828fa3;

@@ -4,6 +4,10 @@ import "../Modal/modal.css";
 import { closeModal } from "../../store/slices/ModalOpen";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../customHooks/useTypedSelector";
+import {
+  deleteForAllColumns,
+  resetColumns,
+} from "../../store/slices/EditBoardSlice";
 interface IModal {
   title: string;
   children: React.ReactNode;
@@ -20,7 +24,10 @@ export default function Modal({ title, children }: IModal) {
   return ReactDOM.createPortal(
     <section
       className="modal"
-      onClick={() => dispatch(closeModal(closeModalKey))}
+      onClick={() => {
+        dispatch(closeModal(closeModalKey));
+        dispatch(resetColumns());
+      }}
     >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <p className="modal__title">{title}</p>

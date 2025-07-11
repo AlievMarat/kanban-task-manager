@@ -10,6 +10,7 @@ import { sidebarShowAdd } from "../../../../store/slices/SidebarShowSlice";
 import AddNewTask from "../AddNewTask/AddNewTask";
 import MenuButton from "../../../../UI/MenuButton";
 import { useHeaderLogic } from "../../../../customHooks/useHeaderLogic";
+import { useBoardInfoQuery } from "../../useBoardQuery/useBoardQuery";
 import { useDispatch } from "react-redux";
 export default function Header() {
   const {
@@ -23,6 +24,7 @@ export default function Header() {
     setOpenMenu,
   } = useHeaderLogic();
   const dispatch = useDispatch();
+  const { data } = useBoardInfoQuery();
   return (
     <header className="header" onClick={() => openMenu && setOpenMenu(false)}>
       <div className="logo-container">
@@ -42,7 +44,11 @@ export default function Header() {
         <h1 className="header__title">{boardTitle}</h1>
 
         <div className="header__create-board">
-          <Button title="+ Add New Task" onClick={() => addTask()} />
+          <Button
+            title="+ Add New Task"
+            onClick={() => addTask()}
+            disabled={!data?.lists?.length}
+          />
           <img
             src={iconVerticalEllipsis}
             onClick={(e) => {

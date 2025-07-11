@@ -42,7 +42,9 @@ export default function EditBoard() {
               >
                 <img
                   onClick={() => {
-                    dispatch(deleteForAllColumns({ index: 0, id: column?.id }));
+                    dispatch(
+                      deleteForAllColumns({ index: index, id: column?.id })
+                    );
                     console.log(column.id);
                   }}
                   src={IconCross}
@@ -58,7 +60,7 @@ export default function EditBoard() {
                 }
               >
                 <img
-                  onClick={() => dispatch(deleteForNewColumns(index))}
+                  onClick={() => dispatch(deleteForNewColumns({ index }))}
                   src={IconCross}
                 />
               </Input>

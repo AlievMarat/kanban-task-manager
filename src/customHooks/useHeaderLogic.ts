@@ -29,6 +29,7 @@ export function useHeaderLogic() {
   return {
     sidebarShowFlag,
     currentTheme,
+    data,
     openMenu,
     boardTitle,
     addTask,

@@ -9,6 +9,7 @@ import { addAllColumns, resetColumns } from "../store/slices/EditBoardSlice";
 import { addBoardName } from "../store/slices/CreateBoard";
 import { useDispatch } from "react-redux";
 import { IBoardSidebarPost } from "../types/IBoardData";
+import { closeModal } from "../store/slices/ModalOpen";
 export function useEditBoardLogic() {
   const newColumns = useTypedSelector((state) => state.editBoard.newColumns);
   const boardName = useTypedSelector((state) => state.createBoard.title);

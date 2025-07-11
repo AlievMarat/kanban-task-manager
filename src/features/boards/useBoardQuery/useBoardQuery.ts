@@ -18,6 +18,7 @@ import { deleteColumn } from "../../../features/boards/api/useBoards";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { onDeleteBoard } from "../../../features/boards/api/useBoards";
+import { resetColumns } from "../../../store/slices/EditBoardSlice";
 export const useBoardQuery = () => {
   return useQuery({
     queryKey: ["board"],
@@ -112,7 +113,7 @@ export const useRenameBoardMutation = () => {
   const boardId = String(board_id); // гарантируем строку
   const queryClient = useQueryClient();
   const createColumns = useCreateColumnsMutation();
-
+  const dispatch = useDispatch();
   return useMutation({
     mutationFn: (board: IBoardPost) =>
       renameBoardRequest(Number(boardId), board),
@@ -122,6 +123,8 @@ export const useRenameBoardMutation = () => {
       await queryClient.invalidateQueries({ queryKey: ["board"] });
       await queryClient.invalidateQueries({ queryKey: ["columns"] });
       await queryClient.invalidateQueries({ queryKey: ["boardInfo", boardId] });
+      dispatch(closeModal("editBoard"));
+      dispatch(resetColumns());
     },
   });
 };
